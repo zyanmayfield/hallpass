@@ -1,1 +1,2 @@
+- Test push-to-deploy
 - Log a user (exit). Fetch users. Nothing. Check the user. Get message. Fetch users. List contains logged user.
