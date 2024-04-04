@@ -5,11 +5,7 @@ import * as sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import helmet from 'helmet';
-import csurf from 'csurf';
-import crypto from 'crypto';
 import cookieParser from 'cookie-parser';
-
-const csrfSecret = crypto.randomBytes(16).toString('hex');
 
 const app = express();
 const PORT = 3000;
@@ -26,15 +22,9 @@ const initializeServer = async () => {
   app.use(cors()); // Enable CORS for all routes
   app.use(helmet()); // Enhance app security with Helmet
   app.use(cookieParser()); // Parse cookies from request headers
-  app.use(csurf({ cookie: true, value: (req) => req.cookies.csrfToken, secret: csrfSecret }));
 
   // Global error handler
   app.use((err, req, res, next) => {
-    if (err.code === 'EBADCSRFTOKEN') {
-      // Handle CSRF token errors here
-      return res.status(403).json({ error: 'CSRF token invalid' });
-    }
-
     console.error(err.stack);
     res.status(500).json({ error: 'Something went wrong!' });
   });
@@ -75,8 +65,8 @@ const initializeServer = async () => {
   });
 
   app.get('/api/last-exit-users', async (req, res) => {
-    const rows = await db.all('SELECT UserID FROM logs WHERE rowid IN (SELECT MAX(rowid) FROM logs GROUP BY UserID) AND exitTime IS NOT NULL');
-    const users = rows.map(row => row.UserID);
+    const rows = await db.all('SELECT userID FROM logs WHERE rowid IN (SELECT MAX(rowid) FROM logs GROUP BY UserID) AND exitTime IS NOT NULL');
+    const users = rows.map(row => row.userID);
     res.json({ users });
   });
 
