@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npx concurrently \"vite\" \"npx nodemon server.js\"",
-    "start": "vite build && node server.js",
+    "start": "vite build && docker compose down && docker-compose up --build -d",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
