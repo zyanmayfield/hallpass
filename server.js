@@ -6,6 +6,7 @@ import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import * as path from 'path';
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +23,9 @@ const initializeServer = async () => {
   app.use(cors()); // Enable CORS for all routes
   app.use(helmet()); // Enhance app security with Helmet
   app.use(cookieParser()); // Parse cookies from request headers
+
+  // Serve static files from the './dist' folder
+  app.use(express.static(path.resolve('dist')));
 
   // Global error handler
   app.use((err, req, res, next) => {
@@ -68,6 +72,11 @@ const initializeServer = async () => {
     const rows = await db.all('SELECT userID FROM logs WHERE rowid IN (SELECT MAX(rowid) FROM logs GROUP BY UserID) AND exitTime IS NOT NULL');
     const users = rows.map(row => row.userID);
     res.json({ users });
+  });
+
+  // Route to serve ./dist/index.html for all unmatched routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('dist', 'index.html'));
   });
 
   // Start server
