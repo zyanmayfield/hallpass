@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: hallpass
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./hall.db:/app/hall.db
+    ports:
+      - "3000:3000"
