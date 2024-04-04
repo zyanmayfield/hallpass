@@ -1,4 +1,3 @@
-import React from 'react';
 import UserForm from './UserForm'; // Assuming UserForm.js is in the same directory as App.js
 import UserCheck from './UserCheck';
 import LastExitUsers from './LastExitUsers';
@@ -10,7 +9,6 @@ const App = () => {
             <UserForm />
             <UserCheck />
             <LastExitUsers />
-
         </div>
     );
 };
