@@ -5,17 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "npx concurrently \"vite\" \"npx nodemon server.js\"",
-    "start": "vite build && docker compose down && docker-compose up --build -d",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "start": "npx vite build && docker compose down && docker-compose up --build -d",
+    "lint": "npx eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
@@ -27,6 +27,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "minimatch": "^9.0.4",
     "vite": "^5.2.0"
   }
 }
